@@ -86,9 +86,15 @@ function showWeatherConditions(response) {
   console.log(response.data);
   let temperature = Math.round(response.data.main.temp);
   let currentTemp = document.querySelector("#current-temperature");
-  currentTemp.innerHTML = `${temperature}`;
   let form = document.querySelector("#search-engine");
+  let iconElement = document.querySelector("#iconLarge");
   form.addEventListener("submit", handleSubmit);
+  currentTemp.innerHTML = `${temperature}`;
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  iconElement.setAttribute("alt", response.data.weather[0].description);
 
   document.querySelector("#conditions").innerHTML = response.data.main.temp;
 }
