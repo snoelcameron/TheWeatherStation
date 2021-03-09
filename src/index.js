@@ -67,9 +67,15 @@ function showWeather(response) {
   let cityElement = document.querySelector("h1");
   cityElement.innerHTML = response.data.name;
   let temperature = Math.round(response.data.main.temp);
+  let iconElement = document.querySelector("#iconLarge");
   document.querySelector("#temperature").innerHTML = `${temperature}`;
   document.querySelector("#description").innerHTML =
     response.data.weather[0].main;
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  iconElement.setAttribute("alt", response.data.weather[0].description);
 }
 
 function searchCity(city) {
@@ -87,14 +93,8 @@ function showWeatherConditions(response) {
   let temperature = Math.round(response.data.main.temp);
   let currentTemp = document.querySelector("#current-temperature");
   let form = document.querySelector("#search-engine");
-  let iconElement = document.querySelector("#iconLarge");
   form.addEventListener("submit", handleSubmit);
   currentTemp.innerHTML = `${temperature}`;
-  iconElement.setAttribute(
-    "src",
-    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-  );
-  iconElement.setAttribute("alt", response.data.weather[0].description);
 
   document.querySelector("#conditions").innerHTML = response.data.main.temp;
 }
