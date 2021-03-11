@@ -43,24 +43,6 @@ let weatherDate = document.querySelector("#date");
 let now = new Date();
 weatherDate.innerHTML = showDate(now);
 
-// C° to F°
-function showCelsius(event) {
-  event.preventDefault();
-  let temperature = document.querySelector("#temperature");
-  temperature.innerHTML = -4;
-}
-let celsiusButton = document.querySelector("#celsius");
-celsiusButton.addEventListener("click", showCelsius);
-
-function convertFahrenheit(event) {
-  event.preventDefault();
-  let temperature = document.querySelector("#temperature");
-  temperature.innerHTML = 25;
-}
-
-let fahrenheitButton = document.querySelector("#fahrenheit");
-fahrenheitButton.addEventListener("click", convertFahrenheit);
-
 // main location
 
 function showWeather(response) {
@@ -85,6 +67,30 @@ function searchCity(city) {
   let apiEndPoint = `https://api.openweathermap.org/data/2.5/weather?q=`;
 
   axios.get(apiUrl).then(showWeather);
+}
+
+//switch image
+let iconRight = weatherObject.icon;
+let numericCode = left(iconRight, 2);
+switch (numericCode) {
+  case "01":
+    this.document.iconLarge = "images/cloudLarge.png";
+    break;
+  case "02":
+    this.document.iconLarge = "images/few_clouds_large.png";
+    break;
+  case "03":
+    this.document.iconLarge = "images/rainylarge.png";
+    break;
+  case "04":
+    this.document.iconLarge = "images/snowlarge.png";
+    break;
+  case "05":
+    this.document.iconLarge = "images/sunlarge.png";
+    break;
+  case "06":
+    this.document.iconLarge = "images/thunderstorm_large.png";
+    break;
 }
 
 //search city
@@ -127,3 +133,21 @@ function getCurrentLocation(event) {
 
 let geolocationButton = document.querySelector("#geolocation");
 geolocationButton.addEventListener("click", getCurrentLocation);
+
+// C° to F°
+function showCelsius(event) {
+  event.preventDefault();
+  let temperature = document.querySelector("#temperature");
+  temperature.innerHTML = -4;
+}
+let celsiusButton = document.querySelector("#celsius");
+celsiusButton.addEventListener("click", showCelsius);
+
+function convertFahrenheit(event) {
+  event.preventDefault();
+  let temperature = document.querySelector("#temperature");
+  temperature.innerHTML = 25;
+}
+
+let fahrenheitButton = document.querySelector("#fahrenheit");
+fahrenheitButton.addEventListener("click", convertFahrenheit);
