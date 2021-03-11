@@ -60,39 +60,6 @@ function showWeather(response) {
   iconElement.setAttribute("alt", response.data.weather[0].description);
 }
 
-function searchCity(city) {
-  let apiKey = "80c84163db9433d86bea5c88b0e43920";
-  let units = "metric";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
-  let apiEndPoint = `https://api.openweathermap.org/data/2.5/weather?q=`;
-
-  axios.get(apiUrl).then(showWeather);
-}
-
-//switch image
-let iconRight = weatherObject.icon;
-let numericCode = left(iconRight, 2);
-switch (numericCode) {
-  case "01":
-    this.document.iconLarge = "images/cloudLarge.png";
-    break;
-  case "02":
-    this.document.iconLarge = "images/few_clouds_large.png";
-    break;
-  case "03":
-    this.document.iconLarge = "images/rainylarge.png";
-    break;
-  case "04":
-    this.document.iconLarge = "images/snowlarge.png";
-    break;
-  case "05":
-    this.document.iconLarge = "images/sunlarge.png";
-    break;
-  case "06":
-    this.document.iconLarge = "images/thunderstorm_large.png";
-    break;
-}
-
 //search city
 function showWeatherConditions(response) {
   console.log(response.data);
@@ -151,3 +118,38 @@ function convertFahrenheit(event) {
 
 let fahrenheitButton = document.querySelector("#fahrenheit");
 fahrenheitButton.addEventListener("click", convertFahrenheit);
+
+// 5 day forecast
+function dispalyForecast(response) {
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = null;
+  let forecast = null;
+
+  for (let index = 0; index < 6; index++) {
+    forecast = response.data.list[index];
+    forecastElement.innerHTML += `
+   <div class="col-1 card" style="width: 115px">
+  <div class="card-text">
+    <p class="card-temp">${Math.round(forecast.main.temp_max)}°</p>
+    <p class="card-day">sun</p>
+    <img
+      class="card-img-top"
+      src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png"
+      alt="small sun icon"
+    />
+  </div>
+</div>
+`;
+  }
+}
+
+//forecast
+
+function searchCity(city) {
+  let apiKey = "80c84163db9433d86bea5c88b0e43920";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showWeather);
+
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(dispalyForecast);
+}
