@@ -69,6 +69,10 @@ input[type="button"]:hover {
   font-size: 20px;
 }
 
+#backgroundGradient {
+  background: linear-gradient(#ffc10d, #fe9f00);
+}
+
 .container {
   display: block;
   max-width: 678px;

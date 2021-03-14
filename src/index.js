@@ -52,9 +52,7 @@ function showWeather(response) {
   let description = document.querySelector("#description");
   let humidity = document.querySelector("#humidity");
   let windSpeed = document.querySelector("#wind");
-  let iconLarge = document.querySelector("#iconLarge");
-
-  celsiusTemperature = response.data.main.temp;
+  let todayIcon = document.querySelector("#iconLarge");
 
   city.innerHTML = response.data.name;
   date.innerHTML = showDate(response.data.dt * 1000);
@@ -63,11 +61,43 @@ function showWeather(response) {
   humidity.innerHTML = "Humidity: " + response.data.main.humidity + "%";
   windSpeed.innerHTML =
     "Wind speed: " + Math.round(response.data.wind.speed) + " km/h";
-  iconLarge.setAttribute(
+  todayIcon.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
-  iconLarge.setAttribute("alt", response.data.weather[0].description);
+
+  document
+    .querySelector("#iconLarge")
+    .setAttribute("src", getIcon(response.data.weather[0].todayIcon));
+}
+
+//switch icon
+function getIcon(response) {
+  let todayIcon = document.querySelector("#iconLarge");
+  let iconId = response.data.weather[0].description;
+  if (iconId === "01d" || iconId === "01n") {
+    todayIcon.setAttribute("alt", "images/sunlarge");
+  } else if (iconId === "02d" || iconId === "02n") {
+    todayIcon.setAttribute("alt", "images/few_clouds_large");
+  } else if (
+    iconId === "03d" ||
+    iconId === "03n" ||
+    iconId === "04d" ||
+    iconId === "04n"
+  ) {
+    todayIcon.setAttribute("alt", "images/cloudlarge");
+  } else if (iconId === "09d" || iconId === "09n") {
+    todayIcon.setAttribute("alt", "images/rainylarge");
+  } else if (iconId === "10d" || iconId === "10n") {
+    todayIcon.setAttribute("alt", "images/rainylarge");
+  } else if (iconId === "11d" || iconId === "11n") {
+    todayIcon.setAttribute("alt", "images/thunderstorm_large");
+  } else if (iconId === "13d" || iconId === "13n") {
+    todayIcon.setAttribute("alt", "images/snowlarge");
+  } else if (iconId === "50d" || iconId === "50n") {
+    todayIcon.setAttribute("alt", "images/cloudlarge");
+  }
+  return iconElement;
 }
 
 //forecast
@@ -112,6 +142,28 @@ function handleSubmit(event) {
   search(cityInput.value);
 }
 
+search("Montreal");
+
+//current position
+
+function showPosition(position) {
+  let latitude = position.coords.latitude;
+  let longitude = position.coords.longitude;
+  let apiKey = "80c84163db9433d86bea5c88b0e43920";
+  let units = "metric";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
+
+  axios.get(apiUrl).then(showWeather);
+}
+
+function getPosition(event) {
+  event.preventDefault();
+  window.navigator.geolocation.getCurrentPosition(showPosition);
+}
+
+let geolocationButton = document.querySelector("#geolocation");
+geolocationButton.addEventListener("click", getPosition);
+
 //convert to farenheit
 
 function displayFahrenheitTemperature(event) {
@@ -142,49 +194,3 @@ fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
 
 let celsiusLink = document.querySelector("#celsius");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
-
-search("Montreal");
-
-//switch background gradient
-
-function change() {
-  let background = "#backgroundGradient";
-  let colour1 = document.getElementsByTagName("01d.png")[0].value;
-  let colour2 = document.getElementsByTagName("02d.png ")[1].value;
-  let colour3 = document.getElementsByTagName("03d.png")[2].value;
-  let colour4 = document.getElementsByTagName("09d.png")[3].value;
-  let colour5 = document.getElementsByTagName("11d.png")[4].value;
-  let colour6 = document.getElementsByTagName("13d.png")[5].value;
-  let colour7 = document.getElementsByTagName("50d.png")[6].value;
-
-  let answers = [colour1, colour2, colour3, colour4, colour5, colour6, colour7];
-
-  switch (answers) {
-    case answers[0]:
-      background = gradient("#ffc10d, #fe9f00");
-      break;
-    case answers[1]:
-      background = gradient("#ffc10d, #fe9f00");
-      break;
-    case answers[2]:
-      background = gradient("#3e7dba, #2d52a7");
-      break;
-    case answers[3]:
-      background = gradient("#a4abbe, #4f5077");
-      break;
-    case answers[4]:
-      background = gradient("#a4abbe, #4f5077");
-      break;
-    case answers[5]:
-      background = gradient("#83bcc8, #628a9d");
-      break;
-    case answers[6]:
-      background = gradient("#3e7dba, #2d52a7");
-      break;
-
-    default:
-      background = gradient("#ffc10d, #fe9f00");
-  }
-
-  document.getElementById("outputBackground").innerHTML = image;
-}
