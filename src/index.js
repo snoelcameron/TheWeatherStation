@@ -144,3 +144,47 @@ let celsiusLink = document.querySelector("#celsius");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 search("Montreal");
+
+//switch background gradient
+
+function change() {
+  let background = "#backgroundGradient";
+  let colour1 = document.getElementsByTagName("01d.png")[0].value;
+  let colour2 = document.getElementsByTagName("02d.png ")[1].value;
+  let colour3 = document.getElementsByTagName("03d.png")[2].value;
+  let colour4 = document.getElementsByTagName("09d.png")[3].value;
+  let colour5 = document.getElementsByTagName("11d.png")[4].value;
+  let colour6 = document.getElementsByTagName("13d.png")[5].value;
+  let colour7 = document.getElementsByTagName("50d.png")[6].value;
+
+  let answers = [colour1, colour2, colour3, colour4, colour5, colour6, colour7];
+
+  switch (answers) {
+    case answers[0]:
+      background = gradient("#ffc10d, #fe9f00");
+      break;
+    case answers[1]:
+      background = gradient("#ffc10d, #fe9f00");
+      break;
+    case answers[2]:
+      background = gradient("#3e7dba, #2d52a7");
+      break;
+    case answers[3]:
+      background = gradient("#a4abbe, #4f5077");
+      break;
+    case answers[4]:
+      background = gradient("#a4abbe, #4f5077");
+      break;
+    case answers[5]:
+      background = gradient("#83bcc8, #628a9d");
+      break;
+    case answers[6]:
+      background = gradient("#3e7dba, #2d52a7");
+      break;
+
+    default:
+      background = gradient("#ffc10d, #fe9f00");
+  }
+
+  document.getElementById("outputBackground").innerHTML = image;
+}
