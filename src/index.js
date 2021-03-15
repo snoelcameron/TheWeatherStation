@@ -43,6 +43,74 @@ let weatherDate = document.querySelector("#date");
 let now = new Date();
 weatherDate.innerHTML = showDate(now);
 
+//switch icon
+function changeWeatherIcon(icon) {
+  let iconElement = "";
+  if (icon === "01d") {
+    iconElement = "images/sunlarge.png";
+  } else if (icon === "01n") {
+    iconElement = "images/sunlarge.png";
+  } else if (icon === "02d") {
+    iconElement = "images/few_clouds_large.png";
+  } else if (icon === "02n") {
+    iconElement = "images/few_clouds_large.png";
+  } else if (
+    icon === "03d" ||
+    icon === "03n" ||
+    icon === "04d" ||
+    icon === "04n" ||
+    icon === "50d" ||
+    icon === "50n"
+  ) {
+    iconElement = "images/cloudlarge.png";
+  } else if (
+    icon === "10n" ||
+    icon === "10d" ||
+    icon === "9n" ||
+    icon === "9d"
+  ) {
+    iconElement = "images/rainylarge.png";
+  } else if (icon === "11d" || icon === "11n") {
+    iconElement = "images/thunderstormlarge.png";
+  } else if (icon === "13d" || icon === "13n") {
+    iconElement = "images/snowlarge.png";
+  }
+  return iconElement;
+}
+
+function changeBackground(icon) {
+  let backgroundGradient = "";
+  if (icon === "01d") {
+    backgroundGradient = "linear-gradient(#ffc10d, #fe9f00)";
+  } else if (icon === "02d") {
+    backgroundGradient = "linear-gradient(#ffc10d, #fe9f00)";
+  } else if (icon === "01n" || icon === "02n") {
+    backgroundGradient = "linear-gradient(#ffc10d, #fe9f00)";
+  } else if (
+    icon === "03d" ||
+    icon === "03n" ||
+    icon === "04d" ||
+    icon === "04d" ||
+    icon === "50n" ||
+    icon === "50d"
+  ) {
+    backgroundGradient = "linear-gradient(#3e7dba, #2d52a7)";
+  } else if (
+    icon === "09d" ||
+    icon === "09n" ||
+    icon === "10d" ||
+    icon === "10n"
+  ) {
+    backgroundGradient = "linear-gradient(#a4abbe, #4f5077)";
+  } else if (icon === "11d" || icon === "11n") {
+    backgroundGradient = "linear-gradient(#a4abbe, #4f5077)";
+  } else if (icon === "13d" || icon === "13n") {
+    backgroundGradient = "linear-gradient(#83bcc8, #628a9d)";
+  }
+
+  return backgroundGradient;
+}
+
 //temperature
 
 function showWeather(response) {
@@ -52,7 +120,9 @@ function showWeather(response) {
   let description = document.querySelector("#description");
   let humidity = document.querySelector("#humidity");
   let windSpeed = document.querySelector("#wind");
-  let todayIcon = document.querySelector("#iconLarge");
+  let iconElement = document.querySelector("#iconLarge");
+
+  celsiusTemperature = response.data.main.temp;
 
   city.innerHTML = response.data.name;
   date.innerHTML = showDate(response.data.dt * 1000);
@@ -61,43 +131,21 @@ function showWeather(response) {
   humidity.innerHTML = "Humidity: " + response.data.main.humidity + "%";
   windSpeed.innerHTML =
     "Wind speed: " + Math.round(response.data.wind.speed) + " km/h";
-  todayIcon.setAttribute(
+  iconElement.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
 
-  document
-    .querySelector("#iconLarge")
-    .setAttribute("src", getIcon(response.data.weather[0].todayIcon));
-}
+  iconElement.setAttribute(
+    "src",
+    changeWeatherIcon(response.data.weather[0].todayIcon)
+  );
 
-//switch icon
-function getIcon(response) {
-  let todayIcon = document.querySelector("#iconLarge");
-  let iconId = response.data.weather[0].description;
-  if (iconId === "01d" || iconId === "01n") {
-    todayIcon.setAttribute("alt", "images/sunlarge");
-  } else if (iconId === "02d" || iconId === "02n") {
-    todayIcon.setAttribute("alt", "images/few_clouds_large");
-  } else if (
-    iconId === "03d" ||
-    iconId === "03n" ||
-    iconId === "04d" ||
-    iconId === "04n"
-  ) {
-    todayIcon.setAttribute("alt", "images/cloudlarge");
-  } else if (iconId === "09d" || iconId === "09n") {
-    todayIcon.setAttribute("alt", "images/rainylarge");
-  } else if (iconId === "10d" || iconId === "10n") {
-    todayIcon.setAttribute("alt", "images/rainylarge");
-  } else if (iconId === "11d" || iconId === "11n") {
-    todayIcon.setAttribute("alt", "images/thunderstorm_large");
-  } else if (iconId === "13d" || iconId === "13n") {
-    todayIcon.setAttribute("alt", "images/snowlarge");
-  } else if (iconId === "50d" || iconId === "50n") {
-    todayIcon.setAttribute("alt", "images/cloudlarge");
-  }
-  return iconElement;
+  document.getElementById(
+    "backgroundGradient"
+  ).style.backgroundImage = changeBackground(
+    response.data.current.weather[0].icon
+  );
 }
 
 //forecast
@@ -142,27 +190,21 @@ function handleSubmit(event) {
   search(cityInput.value);
 }
 
-search("Montreal");
-
 //current position
 
-function showPosition(position) {
-  let latitude = position.coords.latitude;
-  let longitude = position.coords.longitude;
+function searchLocation(position) {
   let apiKey = "80c84163db9433d86bea5c88b0e43920";
-  let units = "metric";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
 
   axios.get(apiUrl).then(showWeather);
 }
 
-function getPosition(event) {
+function getCurrentLocation(event) {
   event.preventDefault();
-  window.navigator.geolocation.getCurrentPosition(showPosition);
+  navigator.geolocation.getCurrentPosition(searchLocation);
 }
-
 let geolocationButton = document.querySelector("#geolocation");
-geolocationButton.addEventListener("click", getPosition);
+geolocationButton.addEventListener("click", getCurrentLocation);
 
 //convert to farenheit
 
@@ -194,3 +236,5 @@ fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
 
 let celsiusLink = document.querySelector("#celsius");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
+
+search("Montreal");
