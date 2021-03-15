@@ -46,13 +46,9 @@ weatherDate.innerHTML = showDate(now);
 //switch icon
 function changeWeatherIcon(icon) {
   let iconElement = "";
-  if (icon === "01d") {
+  if (icon === "01d" || icon === "01n") {
     iconElement = "images/sunlarge.png";
-  } else if (icon === "01n") {
-    iconElement = "images/sunlarge.png";
-  } else if (icon === "02d") {
-    iconElement = "images/few_clouds_large.png";
-  } else if (icon === "02n") {
+  } else if (icon === "02n" || icon === "02d") {
     iconElement = "images/few_clouds_large.png";
   } else if (
     icon === "03d" ||
@@ -71,12 +67,14 @@ function changeWeatherIcon(icon) {
   ) {
     iconElement = "images/rainylarge.png";
   } else if (icon === "11d" || icon === "11n") {
-    iconElement = "images/thunderstormlarge.png";
+    iconElement = "images/thunderstorm_large.png";
   } else if (icon === "13d" || icon === "13n") {
     iconElement = "images/snowlarge.png";
   }
   return iconElement;
 }
+
+//switch backgorund gradietn
 
 function changeBackground(icon) {
   let backgroundGradient = "";
@@ -141,6 +139,11 @@ function showWeather(response) {
     changeWeatherIcon(response.data.weather[0].todayIcon)
   );
 
+  iconElement.setAttribute(
+    "src",
+    changeForecastIcon(response.data.weather[0].todayIcon)
+  );
+
   document.getElementById(
     "backgroundGradient"
   ).style.backgroundImage = changeBackground(
@@ -171,6 +174,37 @@ function dispalyForecast(response) {
 </div>
   `;
   }
+}
+
+//forecast icon switch
+function changeForecastIcon(icon) {
+  let iconElement = "";
+  if (icon === "01d" || icon === "01n") {
+    iconElement = "images/sunsmall.png";
+  } else if (icon === "02n" || icon === "02d") {
+    iconElement = "images/few_clouds_small.png";
+  } else if (
+    icon === "03d" ||
+    icon === "03n" ||
+    icon === "04d" ||
+    icon === "04n" ||
+    icon === "50d" ||
+    icon === "50n"
+  ) {
+    iconElement = "images/cloudsmall.png";
+  } else if (
+    icon === "10n" ||
+    icon === "10d" ||
+    icon === "9n" ||
+    icon === "9d"
+  ) {
+    iconElement = "images/rainysmall.png";
+  } else if (icon === "11d" || icon === "11n") {
+    iconElement = "images/thunderstorm_small.png";
+  } else if (icon === "13d" || icon === "13n") {
+    iconElement = "images/snowsmall.png";
+  }
+  return iconElement;
 }
 
 //search city
