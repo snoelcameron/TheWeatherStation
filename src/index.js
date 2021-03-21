@@ -47,11 +47,14 @@ function changeWeatherIcon(icon) {
   let iconElement = "";
   if (icon === "01d" || icon === "01n") {
     iconElement = "images/suncircle.png";
-  } else if (icon === "02n" || icon === "02d") {
+  } else if (
+    icon === "02n" ||
+    icon === "02d" ||
+    icon === "03n" ||
+    icon === "03d"
+  ) {
     iconElement = "images/suncloudcircle.png";
   } else if (
-    icon === "03d" ||
-    icon === "03n" ||
     icon === "04d" ||
     icon === "04n" ||
     icon === "50d" ||
@@ -81,11 +84,14 @@ function changeBackground(icon) {
     backgroundGradient = "linear-gradient(#ffc10d, #fe9f00)";
   } else if (icon === "02d") {
     backgroundGradient = "linear-gradient(#ffc10d, #fe9f00)";
-  } else if (icon === "01n" || icon === "02n") {
+  } else if (
+    icon === "01n" ||
+    icon === "02n" ||
+    icon === "03n" ||
+    icon === "03d"
+  ) {
     backgroundGradient = "linear-gradient(#ffc10d, #fe9f00)";
   } else if (
-    icon === "03d" ||
-    icon === "03n" ||
     icon === "04d" ||
     icon === "04d" ||
     icon === "50n" ||
@@ -118,7 +124,7 @@ function showWeather(response) {
   let humidity = document.querySelector("#humidity");
   let windSpeed = document.querySelector("#wind");
   let iconElement = document.querySelector("#iconLarge");
-
+  let iconForecast = document.querySelector("#cardIcon");
   celsiusTemperature = response.data.main.temp;
 
   city.innerHTML = response.data.name;
@@ -138,11 +144,11 @@ function showWeather(response) {
     changeWeatherIcon(response.data.weather[0].icon)
   );
 
-  /*/iconElement.setAttribute(
+  iconForecast.setAttribute2(
     "src",
     changeForecastIcon(response.data.weather[0].icon)
   );
-/*/
+
   document.getElementById(
     "backgroundGradient"
   ).style.backgroundImage = changeBackground(response.data.weather[0].icon);
@@ -170,11 +176,7 @@ function displayForecast(response) {
   <div class="card-text">
     <p class="card-temp">${Math.round(forecast.main.temp_max)}°</p>
     <p class="card-day" #cardWeekday>${forecastDate(forecast.dt * 1000)}</p>
-    <img
-      class="card-img-top"
-      src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png"
-      alt="conditions"
-    />
+     <img src="" alt="Forecast conditions icon" id="cardIcon" width="115px"/>
   </div>
 </div>
   `;
