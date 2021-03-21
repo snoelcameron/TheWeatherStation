@@ -22,7 +22,7 @@ form {
 input[type="text"] {
   width: 395px;
   padding: 15px;
-  background-color: #ffc450;
+  background-color: rgb(255, 255, 255, 0.1);
   border-radius: 29px;
   color: #ffffff;
   border: 1px solid #ffffff;
@@ -32,14 +32,14 @@ input[type="submit"] {
   width: 90px;
   padding: 15px;
   margin: 0 5px;
-  color: #ffc450;
+  color: #494949;
   background-color: #ffffff;
   border-radius: 29px;
   border: 1px solid #ffffff;
 }
 
 input[type="submit"]:hover {
-  background-color: #fe9f00;
+  background-color: #494949;
   color: #ffffff;
   border-radius: 29px;
   border: 1px solid;
@@ -50,14 +50,14 @@ input[type="button"] {
   width: 90px;
   padding: 15px;
   margin: 0 5px;
-  color: #ffc450;
+  color: #494949;
   background-color: #ffffff;
   border-radius: 29px;
   border: 1px solid #ffffff;
 }
 
 input[type="button"]:hover {
-  background-color: #fe9f00;
+  background-color: #494949;
   color: #ffffff;
   border-radius: 29px;
   border: 1px solid;
@@ -90,7 +90,9 @@ input[type="button"]:hover {
   text-decoration: none;
 }
 
-.largeimage img {
+.imageContainer img {
+  display: block;
+  margin-left: auto;
   display: block;
   margin-left: auto;
   max-width: 364px;
@@ -127,9 +129,6 @@ input[type="button"]:hover {
   padding: 10px;
   position: absolute;
 }
-
-/*all the resources online suggest to use absolute positionning 
-to write text above an image. it works, but is there a better solution? */
 
 .footer {
   font-weight: 100;

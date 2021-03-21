@@ -8,7 +8,6 @@ function showDate() {
     "Thursday",
     "Friday",
     "Saturday",
-    "Sunday",
   ];
   let months = [
     "Jan.",
@@ -47,9 +46,9 @@ weatherDate.innerHTML = showDate(now);
 function changeWeatherIcon(icon) {
   let iconElement = "";
   if (icon === "01d" || icon === "01n") {
-    iconElement = "images/sunlarge.png";
+    iconElement = "images/suncircle.png";
   } else if (icon === "02n" || icon === "02d") {
-    iconElement = "images/few_clouds_large.png";
+    iconElement = "images/suncloudcircle.png";
   } else if (
     icon === "03d" ||
     icon === "03n" ||
@@ -58,18 +57,18 @@ function changeWeatherIcon(icon) {
     icon === "50d" ||
     icon === "50n"
   ) {
-    iconElement = "images/cloudlarge.png";
+    iconElement = "images/cloudcircle.png";
   } else if (
     icon === "10n" ||
     icon === "10d" ||
     icon === "9n" ||
     icon === "9d"
   ) {
-    iconElement = "images/rainylarge.png";
+    iconElement = "images/raincircle.png";
   } else if (icon === "11d" || icon === "11n") {
-    iconElement = "images/thunderstorm_large.png";
+    iconElement = "images/thundercircle.png";
   } else if (icon === "13d" || icon === "13n") {
-    iconElement = "images/snowlarge.png";
+    iconElement = "images/snowcircle.png";
   }
   return iconElement;
 }
@@ -136,39 +135,45 @@ function showWeather(response) {
 
   iconElement.setAttribute(
     "src",
-    changeWeatherIcon(response.data.weather[0].todayIcon)
+    changeWeatherIcon(response.data.weather[0].icon)
   );
 
-  iconElement.setAttribute(
+  /*/iconElement.setAttribute(
     "src",
-    changeForecastIcon(response.data.weather[0].todayIcon)
+    changeForecastIcon(response.data.weather[0].icon)
   );
-
+/*/
   document.getElementById(
     "backgroundGradient"
-  ).style.backgroundImage = changeBackground(
-    response.data.current.weather[0].icon
-  );
+  ).style.backgroundImage = changeBackground(response.data.weather[0].icon);
+  console.log(response.data.weather[0].icon);
 }
 
-//forecast
+//forecast date+time
+function forecastDate() {
+  let weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return (currentDay = weekdays[now.getDay()]);
+}
 
-function dispalyForecast(response) {
-  let forecastPreview = document.querySelector("#forecast");
-  forecastPreview.innerHTML = null;
+let forecastWeatherDate = document.querySelector("#cardWeekday");
+let nowDate = new Date();
+forecastWeatherDate = forecastDate(nowDate);
+
+function displayForecast(response) {
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = null;
   let forecast = null;
-
-  for (let index = 0; index < 5; index++) {
+  for (let index = 0; index < 6; index++) {
     forecast = response.data.list[index];
-    forecastPreview.innerHTML += `
-     <div class="col-1 card" style="width: 115px">
+    forecastElement.innerHTML += `
+     <div class="col-1 card">
   <div class="card-text">
     <p class="card-temp">${Math.round(forecast.main.temp_max)}°</p>
-    <p class="card-day">sun</p>
+    <p class="card-day" #cardWeekday>${forecastDate(forecast.dt * 1000)}</p>
     <img
       class="card-img-top"
       src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png"
-      alt="small sun icon"
+      alt="conditions"
     />
   </div>
 </div>
@@ -176,13 +181,13 @@ function dispalyForecast(response) {
   }
 }
 
-//forecast icon switch
+//forecast switch icon
 function changeForecastIcon(icon) {
-  let iconElement = "";
+  let iconForecast = "";
   if (icon === "01d" || icon === "01n") {
-    iconElement = "images/sunsmall.png";
+    iconForecast = "images/sunsmall.png";
   } else if (icon === "02n" || icon === "02d") {
-    iconElement = "images/few_clouds_small.png";
+    iconForecast = "images/sunsmall.png";
   } else if (
     icon === "03d" ||
     icon === "03n" ||
@@ -191,20 +196,20 @@ function changeForecastIcon(icon) {
     icon === "50d" ||
     icon === "50n"
   ) {
-    iconElement = "images/cloudsmall.png";
+    iconForecast = "images/cloudsmall.png";
   } else if (
     icon === "10n" ||
     icon === "10d" ||
     icon === "9n" ||
     icon === "9d"
   ) {
-    iconElement = "images/rainysmall.png";
+    iconForecast = "images/rainsmall.png";
   } else if (icon === "11d" || icon === "11n") {
-    iconElement = "images/thunderstorm_small.png";
+    iconForecast = "images/thundersmall.png";
   } else if (icon === "13d" || icon === "13n") {
-    iconElement = "images/snowsmall.png";
+    iconForecast = "images/snowsmall.png";
   }
-  return iconElement;
+  return iconForecast;
 }
 
 //search city
@@ -214,29 +219,33 @@ function search(city) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(showWeather);
 
-  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(dispalyForecast);
+  let apiUrl2 = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl2).then(displayForecast);
 }
 
 function handleSubmit(event) {
   event.preventDefault();
-  let cityInput = document.querySelector("#city-input");
+  let cityInput = document.querySelector("#city");
   search(cityInput.value);
 }
 
 //current position
 
 function searchLocation(position) {
+  let longitude = position.coords.longitude;
+  let latitude = position.coords.latitude;
   let apiKey = "80c84163db9433d86bea5c88b0e43920";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
-
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(showWeather);
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
 }
 
 function getCurrentLocation(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(searchLocation);
 }
+
 let geolocationButton = document.querySelector("#geolocation");
 geolocationButton.addEventListener("click", getCurrentLocation);
 
