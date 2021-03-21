@@ -76,7 +76,7 @@ function changeWeatherIcon(icon) {
   return iconElement;
 }
 
-//switch backgorund gradietn
+//switch backgorund gradient
 
 function changeBackground(icon) {
   let backgroundGradient = "";
@@ -93,7 +93,7 @@ function changeBackground(icon) {
     backgroundGradient = "linear-gradient(#ffc10d, #fe9f00)";
   } else if (
     icon === "04d" ||
-    icon === "04d" ||
+    icon === "04n" ||
     icon === "50n" ||
     icon === "50d"
   ) {
@@ -144,11 +144,11 @@ function showWeather(response) {
     changeWeatherIcon(response.data.weather[0].icon)
   );
 
-  iconForecast.setAttribute2(
+  /*/  iconForecast.setAttribute(
     "src",
-    changeForecastIcon(response.data.weather[0].icon)
+    displayForecast(response.data.weather[0].icon)
   );
-
+/*/
   document.getElementById(
     "backgroundGradient"
   ).style.backgroundImage = changeBackground(response.data.weather[0].icon);
@@ -156,62 +156,56 @@ function showWeather(response) {
 }
 
 //forecast date+time
-function forecastDate() {
-  let weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  return (currentDay = weekdays[now.getDay()]);
+
+function showDay(timestamp) {
+  let time = new Date(timestamp * 1000);
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  let day = days[time.getDay()];
+  return `${day}`;
 }
 
-let forecastWeatherDate = document.querySelector("#cardWeekday");
-let nowDate = new Date();
-forecastWeatherDate = forecastDate(nowDate);
-
 function displayForecast(response) {
-  let forecastElement = document.querySelector("#forecast");
-  forecastElement.innerHTML = null;
+  document.querySelector("#forecast").innerHTML = null;
   let forecast = null;
   for (let index = 0; index < 5; index++) {
-    forecast = response.data.list[index];
-    forecastElement.innerHTML += `
+    forecast = response.data.daily[index];
+    let iconForecast = "";
+    if (icon === "01d" || icon === "01n") {
+      iconForecast = "images/sunsmall.png";
+    } else if (icon === "02n" || icon === "02d") {
+      iconForecast = "images/sunsmall.png";
+    } else if (
+      icon === "03d" ||
+      icon === "03n" ||
+      icon === "04d" ||
+      icon === "04n" ||
+      icon === "50d" ||
+      icon === "50n"
+    ) {
+      iconForecast = "images/cloudsmall.png";
+    } else if (
+      icon === "10n" ||
+      icon === "10d" ||
+      icon === "9n" ||
+      icon === "9d"
+    ) {
+      iconForecast = "images/rainsmall.png";
+    } else if (icon === "11d" || icon === "11n") {
+      iconForecast = "images/thundersmall.png";
+    } else if (icon === "13d" || icon === "13n") {
+      iconForecast = "images/snowsmall.png";
+    }
+
+    document.querySelector("#forecast").innerHTML += `
      <div class="col-1 card">
   <div class="card-text">
-    <p class="card-temp">${Math.round(forecast.main.temp_max)}°</p>
-    <p class="card-day" #cardWeekday>${forecastDate(forecast.dt * 1000)}</p>
-     <img src="" alt="Forecast conditions icon" id="cardIcon" width="115px"/>
+    <p class="card-temp">${Math.round(forecast.temp)}°</p>
+    <p class="card-day" #cardWeekday>${showDay(forecast.dt * 1000)}</p>
+     <img ${iconForecast} id="cardIcon" width="115px"/>
   </div>
 </div>
   `;
   }
-}
-
-//forecast switch icon
-function changeForecastIcon(icon) {
-  let iconForecast = "";
-  if (icon === "01d" || icon === "01n") {
-    iconForecast = "images/sunsmall.png";
-  } else if (icon === "02n" || icon === "02d") {
-    iconForecast = "images/sunsmall.png";
-  } else if (
-    icon === "03d" ||
-    icon === "03n" ||
-    icon === "04d" ||
-    icon === "04n" ||
-    icon === "50d" ||
-    icon === "50n"
-  ) {
-    iconForecast = "images/cloudsmall.png";
-  } else if (
-    icon === "10n" ||
-    icon === "10d" ||
-    icon === "9n" ||
-    icon === "9d"
-  ) {
-    iconForecast = "images/rainsmall.png";
-  } else if (icon === "11d" || icon === "11n") {
-    iconForecast = "images/thundersmall.png";
-  } else if (icon === "13d" || icon === "13n") {
-    iconForecast = "images/snowsmall.png";
-  }
-  return iconForecast;
 }
 
 //search city
@@ -230,7 +224,10 @@ function handleSubmit(event) {
   let cityInput = document.querySelector("#city-input");
   search(cityInput.value);
 }
+let form = document.querySelector("#search-form");
+form.addEventListener("submit", handleSubmit);
 
+search("Montreal");
 //current position
 
 function searchLocation(position) {
@@ -255,31 +252,59 @@ geolocationButton.addEventListener("click", getCurrentLocation);
 
 function displayFahrenheitTemperature(event) {
   event.preventDefault();
-  let temperature = document.querySelector("#temperature");
+  document.querySelector("#celsiusLink").classList.remove("active");
+  document.querySelector("#fahrenheitLink").classList.add("active");
+  document.querySelector("#temperature").innerHTML = Math.round(
+    (celsiusTemperature * 9) / 5 + 32
+  );
 
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-  let fahrenheiTemperature = (celsiusTemperature * 9) / 5 + 32;
-  temperature.innerHTML = Math.round(fahrenheiTemperature) + "°F";
+  convertDailyForecast("fahrenheit");
+
+  document
+    .querySelector("#celsiusLink")
+    .addEventListener("click", displayCelsiusTemperature);
 }
 
 function displayCelsiusTemperature(event) {
   event.preventDefault();
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
-  let temperature = document.querySelector("#temperature");
-  temperature.innerHTML = Math.round(celsiusTemperature) + "°";
+  document.querySelector("#celsiusLink").classList.add("active");
+  document.querySelector("#fahrenheitLink").classList.remove("active");
+  document.querySelector("#temperature").innerHTML =
+    Math.round(celsiusTemperature) + "°";
+
+  convertDailyForecast("celsius");
+
+  document
+    .querySelector("#celsiusLink")
+    .removeEventListener("click", displayCelsiusTemperature);
+  document
+    .querySelector("#fahrenheitLink")
+    .addEventListener("click", displayFahrenheitTemperature);
+}
+
+//convert FORECAST to farenheit
+
+function convertDailyForecast(unit) {
+  if (unit === "celsius") {
+    document.querySelectorAll(".card-temp").forEach(function (item) {
+      let currentTemp = item.innerHTML;
+
+      item.innerHTML = Math.round(((currentTemp - 32) * 5) / 9);
+    });
+  } else {
+    document.querySelectorAll(".card-temp").forEach(function (item) {
+      let currentTemp = item.innerHTML;
+      item.innerHTML = Math.round((currentTemp * 9) / 5 + 32);
+    });
+  }
 }
 
 let celsiusTemperature = null;
 
-let form = document.querySelector("#search-form");
-form.addEventListener("submit", handleSubmit);
+document
+  .querySelector("#fahrenheitLink")
+  .addEventListener("click", displayFahrenheitTemperature);
 
-let fahrenheitLink = document.querySelector("#fahrenheit");
-fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
-
-let celsiusLink = document.querySelector("#celsius");
-celsiusLink.addEventListener("click", displayCelsiusTemperature);
-
-search("Montreal");
+document
+  .querySelector("#celsiusLink")
+  .addEventListener("click", displayCelsiusTemperature);
