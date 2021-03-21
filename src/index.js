@@ -163,7 +163,7 @@ function displayForecast(response) {
   let forecastElement = document.querySelector("#forecast");
   forecastElement.innerHTML = null;
   let forecast = null;
-  for (let index = 0; index < 6; index++) {
+  for (let index = 0; index < 5; index++) {
     forecast = response.data.list[index];
     forecastElement.innerHTML += `
      <div class="col-1 card">
@@ -225,7 +225,7 @@ function search(city) {
 
 function handleSubmit(event) {
   event.preventDefault();
-  let cityInput = document.querySelector("#city");
+  let cityInput = document.querySelector("#city-input");
   search(cityInput.value);
 }
 
