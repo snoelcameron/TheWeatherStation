@@ -152,7 +152,6 @@ function showWeather(response) {
   document.getElementById(
     "backgroundGradient"
   ).style.backgroundImage = changeBackground(response.data.weather[0].icon);
-  console.log(response.data.weather[0].icon);
 }
 
 //forecast date+time
@@ -168,38 +167,37 @@ function displayForecast(response) {
   document.querySelector("#forecast").innerHTML = null;
   let forecast = null;
   for (let index = 0; index < 5; index++) {
-    forecast = response.data.daily[index];
+    forecast = response.data.daily; //response.data.daily.[index]
     let iconForecast = "";
-    if (icon === "01d" || icon === "01n") {
+    if (iconForecast === "01d" || iconForecast === "01n") {
       iconForecast = "images/sunsmall.png";
-    } else if (icon === "02n" || icon === "02d") {
+    } else if (iconForecast === "02n" || iconForecast === "02d") {
       iconForecast = "images/sunsmall.png";
     } else if (
-      icon === "03d" ||
-      icon === "03n" ||
-      icon === "04d" ||
-      icon === "04n" ||
-      icon === "50d" ||
-      icon === "50n"
+      iconForecast === "03d" ||
+      iconForecast === "03n" ||
+      iconForecast === "04d" ||
+      iconForecast === "04n" ||
+      iconForecast === "50d" ||
+      iconForecast === "50n"
     ) {
       iconForecast = "images/cloudsmall.png";
     } else if (
-      icon === "10n" ||
-      icon === "10d" ||
-      icon === "9n" ||
-      icon === "9d"
+      iconForecast === "10n" ||
+      iconForecast === "10d" ||
+      iconForecast === "9n" ||
+      iconForecast === "9d"
     ) {
       iconForecast = "images/rainsmall.png";
-    } else if (icon === "11d" || icon === "11n") {
+    } else if (iconForecast === "11d" || iconForecast === "11n") {
       iconForecast = "images/thundersmall.png";
-    } else if (icon === "13d" || icon === "13n") {
+    } else if (iconForecast === "13d" || iconForecast === "13n") {
       iconForecast = "images/snowsmall.png";
     }
-
     document.querySelector("#forecast").innerHTML += `
      <div class="col-1 card">
   <div class="card-text">
-    <p class="card-temp">${Math.round(forecast.temp)}°</p>
+    <p class="card-temp">${Math.round(forecast.currentTemp)}°</p>
     <p class="card-day" #cardWeekday>${showDay(forecast.dt * 1000)}</p>
      <img ${iconForecast} id="cardIcon" width="115px"/>
   </div>
