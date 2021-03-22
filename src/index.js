@@ -122,6 +122,7 @@ function showWeather(response) {
   let temperature = document.querySelector("#temperature");
   let description = document.querySelector("#description");
   let humidity = document.querySelector("#humidity");
+  let precipitation = document.querySelector("#precipitation");
   let windSpeed = document.querySelector("#wind");
   let iconElement = document.querySelector("#iconLarge");
   celsiusTemperature = response.data.main.temp;
@@ -130,13 +131,22 @@ function showWeather(response) {
   date.innerHTML = showDate(response.data.dt * 1000);
   temperature.innerHTML = Math.round(celsiusTemperature) + "°";
   description.innerHTML = response.data.weather[0].description;
-  humidity.innerHTML = "Humidity: " + response.data.main.humidity + "%";
+
+  if (response.data.rain !== undefined) {
+    document.querySelector("#precipitation").innerHTML =
+      response.data.rain["1h"] + "mm/h";
+  } else {
+    document.querySelector("#precipitation").innerHTML = "no rain";
+    document
+      .querySelector("#iconLarge")
+      .setAttribute(
+        "src",
+        `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+      );
+  }
   windSpeed.innerHTML =
     "Wind speed: " + Math.round(response.data.wind.speed) + " km/h";
-  iconElement.setAttribute(
-    "src",
-    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-  );
+  humidity.innerHTML = "Humidity " + response.data.main.humidity + "%";
 
   iconElement.setAttribute(
     "src",
