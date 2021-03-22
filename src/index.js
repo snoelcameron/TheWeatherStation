@@ -271,15 +271,17 @@ function displayFahrenheitTemperature(event) {
   event.preventDefault();
   document.querySelector("#celsiusLink").classList.remove("active");
   document.querySelector("#fahrenheitLink").classList.add("active");
-  document.querySelector("#temperature").innerHTML = Math.round(
-    (celsiusTemperature * 9) / 5 + 32
-  );
+  document.querySelector("#temperature").innerHTML =
+    Math.round((celsiusTemperature * 9) / 5 + 32) + "°F";
 
   convertDailyForecast("fahrenheit");
 
   document
     .querySelector("#celsiusLink")
     .addEventListener("click", displayCelsiusTemperature);
+  document
+    .querySelector("#fahrenheitLink")
+    .removeEventListener("click", displayFahrenheitTemperature);
 }
 
 function displayCelsiusTemperature(event) {
@@ -289,7 +291,7 @@ function displayCelsiusTemperature(event) {
   document.querySelector("#temperature").innerHTML =
     Math.round(celsiusTemperature) + "°";
 
-  convertDailyForecast("celsius");
+  convertDailyForecast("celsiusTemperature");
 
   document
     .querySelector("#celsiusLink")
@@ -300,18 +302,20 @@ function displayCelsiusTemperature(event) {
 }
 
 //convert FORECAST to farenheit
-
 function convertDailyForecast(unit) {
-  if (unit === "celsius") {
-    document.querySelectorAll(".card-temp").forEach(function (item) {
-      let currentTemp = item.innerHTML;
-
-      item.innerHTML = Math.round(((currentTemp - 32) * 5) / 9);
+  if (unit === "celsiusTemperature") {
+    document.querySelectorAll(".card-temp").forEach(function (temperature) {
+      let currentTemperature = temperature.innerHTML.replace("°", "");
+      temperature.innerHTML = `${Math.round(
+        ((currentTemperature - 32) * 5) / 9
+      )}°`;
     });
   } else {
-    document.querySelectorAll(".card-temp").forEach(function (item) {
-      let currentTemp = item.innerHTML;
-      item.innerHTML = Math.round((currentTemp * 9) / 5 + 32);
+    document.querySelectorAll(".card-temp").forEach(function (temperature) {
+      let currentTemperature = temperature.innerHTML.replace("°", "");
+      temperature.innerHTML = `${Math.round(
+        (currentTemperature * 9) / 5 + 32
+      )}°`;
     });
   }
 }

@@ -11,7 +11,7 @@ h1 {
 
 h4 {
   font-weight: 100;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 form {
@@ -71,6 +71,18 @@ input[type="button"]:hover {
 
 #backgroundGradient {
   background: linear-gradient(#ffc10d, #fe9f00);
+}
+
+#celsiusLink,
+#fahrenheitLink {
+  color: #ffffff;
+  top: -36px;
+}
+
+#celsiusLink:hover,
+#fahrenheitLink:hover {
+  color: #494949;
+  transition: all 200ms ease-in-out;
 }
 
 .container {
