@@ -10,7 +10,6 @@ import Form from "./Form";
 import Description from "./Description";
 import Forecast from "./Forecast";
 import Image from "./Image";
-import ConditionsList from "./ConditionsList";
 
 export default function App(
   city,
@@ -27,10 +26,13 @@ export default function App(
           city="Montreal"
           date="Sunday, March 26, 8:00pm"
           description="Sunny"
+          measure="Conditions"
+          result="20°"
+          measure="Humidity"
+          result="20%"
+          measure="Wind Speed"
+          result="9km/h"
         />
-        <ConditionsList measure="Conditions" result="20°" />
-        <ConditionsList measure="Humidity" result="20%" />
-        <ConditionsList measure="Wind Speed" result="9km/h" />
         <div className="forecast">
           <Forecast temperature={26} />
         </div>
