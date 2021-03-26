@@ -1,0 +1,31 @@
+#description {
+  font-weight: 100;
+  font-size: 16px;
+}
+
+#city {
+  font-weight: 100;
+  font-size: 16px;
+}
+
+#date {
+  font-weight: 100;
+  font-size: 16px;
+}
+
+.weather-items {
+  color: #3a474e;
+  list-style-type: none;
+  text-align: right;
+  margin-top: 8px;
+}
+
+.current-temperature {
+  font-weight: 500;
+  font-size: 120px;
+}
+
+.weather-measure {
+  font-weight: 200;
+  font-size: 14px;
+}
