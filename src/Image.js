@@ -2,7 +2,7 @@ import "./Image.css";
 
 import React from "react";
 
-export default function WeatherImg() {
+export default function Image() {
   return (
     <div>
       <img
