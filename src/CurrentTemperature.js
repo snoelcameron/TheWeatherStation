@@ -1,4 +1,4 @@
-import "./Forecast.css";
+import "./CurrentTemperature.css";
 
 import React from "react";
 
@@ -23,16 +23,8 @@ export default function Forecast(props) {
 <div class="row">
   <div class="col-12">
     <div class="weather-temperature">
-      <span class="temperature">26</span>
-      <span class="temp-scale">
-        <a href="#" id="celsius-link" class="active">
-          °C{" "}
-        </a>{" "}
-        |
-        <a href="#" id="fahrenheit-link">
-          °F
-        </a>
-      </span>
+      <span class="temperature">6</span>
+      <span class="current-temperature" id="temperature"></span>
     </div>
   </div>
 </div>;

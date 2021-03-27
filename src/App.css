@@ -1,11 +1,8 @@
 .App {
   font-family: "NeueMontreal-Regular";
-  color: red;
-  margin: auto;
-}
-
-#backgroundGradient {
   background: linear-gradient(#ffc10d, #fe9f00);
+  color: #ffffff;
+  margin: auto;
 }
 
 .header {

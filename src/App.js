@@ -2,13 +2,11 @@ import React from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
 import "./App.css";
 import Form from "./Form";
 import Description from "./Description";
-import Forecast from "./Forecast";
+import CurrentTemperature from "./CurrentTemperature";
 import Image from "./Image";
 
 export default function App(
@@ -22,27 +20,32 @@ export default function App(
   return (
     <div className="App">
       <Container>
-        <Description
-          city="Montreal"
-          date="Sunday, March 26, 8:00pm"
-          description="Sunny"
-          measure="Conditions"
-          result="20°"
-          measure="Humidity"
-          result="20%"
-          measure="Wind Speed"
-          result="9km/h"
-        />
-        <div className="forecast">
-          <Forecast temperature={26} />
+        <div class="header">The Weather Station</div>
+        <div class="row">
+          <div class="col-5">
+            <Description
+              city="Montreal"
+              date="Sunday, March 26, 8:00pm"
+              description="Sunny"
+              measure="Conditions"
+              result="20°"
+              measure="Humidity"
+              result="20%"
+              measure="Wind Speed"
+              result="9km/h"
+            />
+            <div className="CurrentTemperature">
+              <CurrentTemperature temperature={26} />
+            </div>
+          </div>
+          <div class="col-7">
+            <div class="imageContainer">
+              <div>
+                <img src="" alt="conditions icon" id="iconLarge" />
+              </div>
+            </div>
+          </div>
         </div>
-
-        <Row>
-          <Col>
-            <Image />
-          </Col>
-          <Col></Col>
-        </Row>
       </Container>
     </div>
   );
