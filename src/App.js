@@ -1,25 +1,44 @@
 import React from "react";
-import "./styles.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
-import Description from "./Description";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
-export default function App() {
+import "./App.css";
+import Header from "./Header";
+import Description from "./Description";
+import FarenheitConversion from "./FarenheitConversion";
+import WeatherIcon from "./WeatherIcon";
+import Form from "./Form";
+import Forecast from "./Forecast";
+import Footer from "./Footer";
+
+export default function App(city, description, date, temperature, result) {
   return (
     <div className="App">
       <Container>
-        <div class="header">The Weather Station</div>
-        <div>
-          <Description
-            city="Montreal"
-            date="Sunday, March 26, 8:00pm"
-            description="Sunny"
-            humidity="20%"
-            windspeed="9km/h"
-            Image="imageContainer"
-          ></Description>
+        <Header />
+        <Description
+          city="Montreal"
+          date="Saturday, March 27, 17:32"
+          description="Sunny"
+          humidity="20%"
+          windspeed="9km/h"
+        />
+        <div className="FarenheitConversion">
+          <FarenheitConversion temperature={26} />
         </div>
+        <Col>
+          <WeatherIcon />
+        </Col>
+        <Row>
+          <Col>
+            <Form />
+          </Col>
+        </Row>
+        <Forecast />
+        <Footer />
       </Container>
     </div>
   );

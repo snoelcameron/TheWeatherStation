@@ -9,7 +9,7 @@ export default function Form() {
           autoComplete="off"
           type="text"
           className="form-control"
-          placeholder="Type a city"
+          placeholder="🔍 Type a city"
           id="search-text-input"
         />
 
@@ -17,7 +17,13 @@ export default function Form() {
           className="btn btn-outline-secondary"
           type="submit"
           value="Search"
-          id="search-btn"
+          id="city-input"
+        />
+        <input
+          className="btn btn-outline-secondary"
+          type="submit"
+          value="Current"
+          id="geolocation"
         />
       </form>
     </div>

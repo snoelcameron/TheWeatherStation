@@ -3,7 +3,7 @@ form {
   height: 58px;
 }
 
-input[type="text"] {
+#search-text-input {
   width: 395px;
   padding: 15px;
   background-color: rgb(255, 255, 255, 0.1);
@@ -12,7 +12,7 @@ input[type="text"] {
   border: 1px solid #ffffff;
 }
 
-input[type="submit"] {
+#city-input {
   width: 90px;
   padding: 15px;
   margin: 0 5px;
@@ -22,15 +22,16 @@ input[type="submit"] {
   border: 1px solid #ffffff;
 }
 
-input[type="submit"]:hover {
+#city-input:hover {
   background-color: #494949;
   color: #ffffff;
   border-radius: 29px;
   border: 1px solid;
+  border: 1px solid #494949;
   transition: all 0.3s ease 0s;
 }
 
-input[type="button"] {
+#geolocation {
   width: 90px;
   padding: 15px;
   margin: 0 5px;
@@ -40,10 +41,11 @@ input[type="button"] {
   border: 1px solid #ffffff;
 }
 
-input[type="button"]:hover {
+#geolocation:hover {
   background-color: #494949;
   color: #ffffff;
   border-radius: 29px;
   border: 1px solid;
+  border: 1px solid #494949;
   transition: all 0.3s ease 0s;
 }

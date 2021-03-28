@@ -1,0 +1,19 @@
+.App {
+  font-family: "NeueMontreal-Regular";
+  background: linear-gradient(#ffc10d, #fe9f00);
+  margin: auto;
+  display: block;
+  max-width: 678px;
+}
+
+h1 {
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 40px;
+}
+
+h4 {
+  color: #ffffff;
+  font-weight: 100;
+  font-size: 16px;
+}
