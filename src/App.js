@@ -5,7 +5,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import "./App.css";
+import "./styles.css";
 import Header from "./Header";
 import Description from "./Description";
 import FarenheitConversion from "./FarenheitConversion";
@@ -14,7 +14,15 @@ import Form from "./Form";
 import Forecast from "./Forecast";
 import Footer from "./Footer";
 
-export default function App(city, description, date, temperature, result) {
+export default function App(
+  city,
+  date,
+  description,
+  humidity,
+  windspeed,
+  temperature,
+  result
+) {
   return (
     <div className="App">
       <Container>
