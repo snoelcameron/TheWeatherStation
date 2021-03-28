@@ -11,32 +11,25 @@ import Description from "./Description";
 import FarenheitConversion from "./FarenheitConversion";
 import WeatherIcon from "./WeatherIcon";
 import Form from "./Form";
-import Forecast from "./Forecast";
 import Footer from "./Footer";
 
-export default function App(
-  city,
-  date,
-  description,
-  humidity,
-  windspeed,
-  temperature,
-  result
-) {
+export default function App() {
   return (
-    <div className="App">
-      <Container>
+    <Container>
+      <div className="App">
         <Header />
-        <Description
-          city="Montreal"
-          date="Saturday, March 27, 17:32"
-          description="Sunny"
-          humidity="20%"
-          windspeed="9km/h"
-        />
-        <div className="FarenheitConversion">
-          <FarenheitConversion temperature={26} />
-        </div>
+        <Col>
+          <Description
+            city="Montreal"
+            date="Saturday, March 27, 17:32"
+            description="Sunny"
+            humidity="20%"
+            windspeed="9km/h"
+          />
+          <div className="FarenheitConversion">
+            <FarenheitConversion temperature={26} />
+          </div>
+        </Col>
         <Col>
           <WeatherIcon />
         </Col>
@@ -45,9 +38,8 @@ export default function App(
             <Form />
           </Col>
         </Row>
-        <Forecast />
         <Footer />
-      </Container>
-    </div>
+      </div>
+    </Container>
   );
 }

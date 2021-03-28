@@ -1,7 +1,18 @@
 .App {
   font-family: "NeueMontreal-Regular";
-  background: linear-gradient(#ffc10d, #fe9f00);
   margin: auto;
+  display: block;
+  max-width: 678px;
+}
+
+body {
+  font-family: "NeueMontreal-Regular";
+  color: #ffffff;
+  margin: auto;
+  background: linear-gradient(#ffc10d, #fe9f00);
+}
+
+.container {
   display: block;
   max-width: 678px;
 }
