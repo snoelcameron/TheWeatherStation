@@ -19,25 +19,23 @@ export default function App() {
       <div className="App">
         <Header />
         <Row>
-          <Description
-            city="Montreal"
-            date="Saturday, March 27, 17:32"
-            description="Sunny"
-            humidity="20%"
-            windspeed="9km/h"
-          />
-          <div className="FarenheitConversion">
-            <FarenheitConversion temperature={26} />
-          </div>
+          <Col>
+            <Description
+              city="Montreal"
+              date="Saturday, March 27, 17:32"
+              description="Sunny"
+              humidity="20%"
+              windspeed="9km/h"
+            />
+            <div className="FarenheitConversion">
+              <FarenheitConversion temperature={26} />
+            </div>
+          </Col>
+          <Col>
+            <WeatherIcon />
+          </Col>
         </Row>
-        <Row>
-          <WeatherIcon />
-        </Row>
-        <Col>
-          <Row>
-            <Form />
-          </Row>
-        </Col>
+        <Form />
         <Footer />
       </div>
     </Container>
