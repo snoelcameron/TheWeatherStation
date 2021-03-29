@@ -18,7 +18,7 @@ export default function App() {
     <Container>
       <div className="App">
         <Header />
-        <Col>
+        <Row>
           <Description
             city="Montreal"
             date="Saturday, March 27, 17:32"
@@ -29,15 +29,15 @@ export default function App() {
           <div className="FarenheitConversion">
             <FarenheitConversion temperature={26} />
           </div>
-        </Col>
-        <Col>
-          <WeatherIcon />
-        </Col>
-        <Row>
-          <Col>
-            <Form />
-          </Col>
         </Row>
+        <Row>
+          <WeatherIcon />
+        </Row>
+        <Col>
+          <Row>
+            <Form />
+          </Row>
+        </Col>
         <Footer />
       </div>
     </Container>
