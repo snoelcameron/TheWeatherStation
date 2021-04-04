@@ -1,15 +1,88 @@
-.App {
-  font-family: "NeueMontreal-Regular";
-  margin: auto;
-  display: block;
-  max-width: 678px;
-}
-
 body {
   font-family: "NeueMontreal-Regular";
   color: #ffffff;
   margin: auto;
+}
+
+h1 {
+  font-weight: 500;
+  font-size: 40px;
+}
+
+h4 {
+  font-weight: 100;
+  font-size: 16px;
+}
+
+form {
+  margin: 40px 0;
+  height: 58px;
+}
+
+input[type="text"] {
+  width: 395px;
+  padding: 15px;
+  background-color: rgb(255, 255, 255, 0.1);
+  border-radius: 29px;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+
+input[type="submit"] {
+  width: 90px;
+  padding: 15px;
+  margin: 0 5px;
+  color: #494949;
+  background-color: #ffffff;
+  border-radius: 29px;
+  border: 1px solid #ffffff;
+}
+
+input[type="submit"]:hover {
+  background-color: #494949;
+  color: #ffffff;
+  border-radius: 29px;
+  border: 1px solid;
+  transition: all 0.3s ease 0s;
+}
+
+input[type="button"] {
+  width: 90px;
+  padding: 15px;
+  margin: 0 5px;
+  color: #494949;
+  background-color: #ffffff;
+  border-radius: 29px;
+  border: 1px solid #ffffff;
+}
+
+input[type="button"]:hover {
+  background-color: #494949;
+  color: #ffffff;
+  border-radius: 29px;
+  border: 1px solid;
+  transition: all 0.3s ease 0s;
+}
+
+#date {
+  font-weight: 100;
+  font-size: 20px;
+}
+
+#backgroundGradient {
   background: linear-gradient(#ffc10d, #fe9f00);
+}
+
+#celsiusLink,
+#fahrenheitLink {
+  color: #ffffff;
+  top: -36px;
+}
+
+#celsiusLink:hover,
+#fahrenheitLink:hover {
+  color: #494949;
+  transition: all 200ms ease-in-out;
 }
 
 .container {
@@ -17,14 +90,64 @@ body {
   max-width: 678px;
 }
 
-h1 {
-  color: #ffffff;
+.current-temperature {
   font-weight: 500;
-  font-size: 40px;
+  font-size: 120px;
 }
 
-h4 {
-  color: #ffffff;
+.temperatureUnit {
   font-weight: 100;
+  font-size: 20px;
+  text-decoration: none;
+  text-decoration: none;
+}
+
+.imageContainer img {
+  display: block;
+  margin-left: auto;
+  display: block;
+  margin-left: auto;
+  max-width: 364px;
+}
+
+.header {
+  font-weight: 500;
+  margin: 30px auto 70px auto;
+  text-align: center;
+  font-size: 30px;
+}
+
+.card {
+  display: flex;
+  width: 120px;
+  height: 120px;
+  margin: 0 5px;
+  padding: 0;
+  background-color: 0%;
+  background: transparent;
+  border-radius: 25px;
+  border-color: transparent;
+}
+
+.card-text .card-temp {
+  font-size: 25px;
+  text-align: left;
+  margin: 0;
+  padding: 10px;
+  position: absolute;
+}
+.card-text .card-day {
   font-size: 16px;
+  text-align: left;
+  margin: 0;
+  margin: 25% 0;
+  padding: 10px;
+  position: absolute;
+}
+
+.footer {
+  font-weight: 100;
+  margin: 10px auto 40px;
+  text-align: center;
+  font-size: 15px;
 }
